@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Events - College Event Registration System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f7fb;
+        }
+
+        header {
+            background: #1f4e79;
+            color: white;
+            padding: 22px 50px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1250px;
+            margin: 30px auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .top-bar h2 {
+            color: #1f4e79;
+        }
+
+        .back-btn {
+            background: #555;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            overflow-x: auto;
+        }
+
+        .card h3 {
+            color: #1f4e79;
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .main-btn {
+            margin-top: 15px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #1f4e79;
+            color: white;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            display: none;
+            margin-top: 15px;
+            margin-left: 10px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #777;
+            color: white;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #1f4e79;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f8fc;
+        }
+
+        .edit-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 15px;
+            padding: 10px;
+            display: none;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        College Event Registration System
+    </h1>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="top-bar">
+
+        <h2>
+            Event Management
+        </h2>
+
+        <a href="/" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- CREATE / EDIT EVENT -->
+
+    <div class="card">
+
+        <h3 id="formTitle">
+            Create New Event
+        </h3>
+
+
+        <form id="eventForm">
+
+            <div class="form-grid">
+
+
+                <input
+                        type="text"
+                        id="name"
+                        placeholder="Event Name"
+                        required
+                >
+
+
+                <input
+                        type="date"
+                        id="date"
+                        required
+                >
+
+
+                <input
+                        type="time"
+                        id="time"
+                >
+
+
+                <input
+                        type="text"
+                        id="venue"
+                        placeholder="Venue"
+                        required
+                >
+
+
+                <input
+                        type="number"
+                        id="maxSeats"
+                        placeholder="Maximum Seats"
+                        min="1"
+                        required
+                >
+
+
+                <textarea
+                        id="description"
+                        class="full-width"
+                        placeholder="Event Description">
+                </textarea>
+
+
+            </div>
+
+
+            <button
+                    type="submit"
+                    class="main-btn"
+                    id="submitBtn">
+
+                Create Event
+
+            </button>
+
+
+            <button
+                    type="button"
+                    id="cancelEdit"
+                    class="cancel-btn"
+                    onclick="cancelEdit()">
+
+                Cancel
+
+            </button>
+
+
+        </form>
+
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <!-- EVENT LIST -->
+
+    <div class="card">
+
+        <h3>
+            Event List
+        </h3>
+
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Venue</th>
+                <th>Maximum Seats</th>
+                <th>Description</th>
+                <th>Actions</th>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody id="eventBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+    let editingEventId = null;
+
+
+
+    async function loadEvents() {
+
+        const body =
+            document.getElementById(
+                "eventBody"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/events"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load events"
+                );
+
+            }
+
+
+            const events =
+                await response.json();
+
+
+            body.innerHTML = "";
+
+
+            events.forEach(event => {
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${event.id ?? ""}
+                    </td>
+
+                    <td>
+                        ${event.name ?? ""}
+                    </td>
+
+                    <td>
+                        ${event.date ?? ""}
+                    </td>
+
+                    <td>
+                        ${event.time ?? ""}
+                    </td>
+
+                    <td>
+                        ${event.venue ?? ""}
+                    </td>
+
+                    <td>
+                        ${event.maxSeats ?? ""}
+                    </td>
+
+                    <td>
+                        ${event.description ?? ""}
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="edit-btn"
+                            onclick='editEvent(${JSON.stringify(event)})'>
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteEvent(${event.id})">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                body.appendChild(row);
+
+            });
+
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+
+
+    function editEvent(event) {
+
+        editingEventId =
+            event.id;
+
+
+        document.getElementById(
+            "formTitle"
+        ).innerText =
+            "Edit Event";
+
+
+        document.getElementById(
+            "submitBtn"
+        ).innerText =
+            "Update Event";
+
+
+        document.getElementById(
+            "cancelEdit"
+        ).style.display =
+            "inline-block";
+
+
+        document.getElementById(
+            "name"
+        ).value =
+            event.name ?? "";
+
+
+        document.getElementById(
+            "date"
+        ).value =
+            event.date ?? "";
+
+
+        document.getElementById(
+            "time"
+        ).value =
+            event.time ?? "";
+
+
+        document.getElementById(
+            "venue"
+        ).value =
+            event.venue ?? "";
+
+
+        document.getElementById(
+            "maxSeats"
+        ).value =
+            event.maxSeats ?? "";
+
+
+        document.getElementById(
+            "description"
+        ).value =
+            event.description ?? "";
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
+    function cancelEdit() {
+
+        editingEventId =
+            null;
+
+
+        document.getElementById(
+            "eventForm"
+        ).reset();
+
+
+        document.getElementById(
+            "formTitle"
+        ).innerText =
+            "Create New Event";
+
+
+        document.getElementById(
+            "submitBtn"
+        ).innerText =
+            "Create Event";
+
+
+        document.getElementById(
+            "cancelEdit"
+        ).style.display =
+            "none";
+
+    }
+
+
+
+    async function deleteEvent(id) {
+
+        if (
+            !confirm(
+                "Are you sure you want to delete this event?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `/api/events/${id}`,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                const text =
+                    await response.text();
+
+                throw new Error(
+                    text ||
+                    "Unable to delete event"
+                );
+
+            }
+
+
+            showMessage(
+                "Event deleted successfully!",
+                true
+            );
+
+
+            loadEvents();
+
+
+        } catch (error) {
+
+            showMessage(
+                error.message,
+                false
+            );
+
+        }
+
+    }
+
+
+
+    document
+        .getElementById(
+            "eventForm"
+        )
+        .addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const newEvent = {
+
+                    name:
+                        document.getElementById(
+                            "name"
+                        ).value,
+
+                    date:
+                        document.getElementById(
+                            "date"
+                        ).value,
+
+                    time:
+                        document.getElementById(
+                            "time"
+                        ).value,
+
+                    venue:
+                        document.getElementById(
+                            "venue"
+                        ).value,
+
+                    maxSeats:
+                        Number(
+                            document.getElementById(
+                                "maxSeats"
+                            ).value
+                        ),
+
+                    description:
+                        document.getElementById(
+                            "description"
+                        ).value
+
+                };
+
+
+                try {
+
+                    let response;
+
+
+                    if (
+                        editingEventId === null
+                    ) {
+
+                        // CREATE
+
+                        response =
+                            await fetch(
+                                "/api/events",
+                                {
+
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            newEvent
+                                        )
+
+                                }
+                            );
+
+
+                    } else {
+
+                        // UPDATE
+
+                        response =
+                            await fetch(
+                                `/api/events/${editingEventId}`,
+                                {
+
+                                    method: "PUT",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            newEvent
+                                        )
+
+                                }
+                            );
+
+                    }
+
+
+                    const text =
+                        await response.text();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            text ||
+                            "Operation failed"
+                        );
+
+                    }
+
+
+                    if (
+                        editingEventId === null
+                    ) {
+
+                        showMessage(
+                            "Event created successfully!",
+                            true
+                        );
+
+                    } else {
+
+                        showMessage(
+                            "Event updated successfully!",
+                            true
+                        );
+
+                    }
+
+
+                    cancelEdit();
+
+                    loadEvents();
+
+
+                } catch (error) {
+
+                    showMessage(
+                        error.message,
+                        false
+                    );
+
+                }
+
+            }
+        );
+
+
+
+    function showMessage(
+        text,
+        success
+    ) {
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        message.style.display =
+            "block";
+
+
+        if (success) {
+
+            message.style.background =
+                "#e8f5e9";
+
+            message.style.color =
+                "#2e7d32";
+
+        } else {
+
+            message.style.background =
+                "#ffebee";
+
+            message.style.color =
+                "#c62828";
+
+        }
+
+
+        message.innerText =
+            text;
+
+    }
+
+
+
+    loadEvents();
+
+</script>
+
+
+</body>
+
+</html>

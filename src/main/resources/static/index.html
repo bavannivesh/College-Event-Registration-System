@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>College Event Registration System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        /* HEADER */
+
+        header {
+            background: #1f4e79;
+            color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 25px;
+        }
+
+        header span {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .welcome h2 {
+            color: #1f4e79;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        /* CARDS */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 22px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.08);
+        }
+
+        .card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            color: #1f4e79;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #1f4e79;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #163a5c;
+        }
+
+        /* QUICK ACCESS */
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.08);
+        }
+
+        .section h2 {
+            color: #1f4e79;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .quick-link {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            background: #f4f7fb;
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 5px solid #1f4e79;
+        }
+
+        .quick-link:hover {
+            background: #e8f0f8;
+        }
+
+        .quick-link strong {
+            color: #1f4e79;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background: #1f4e79;
+            color: white;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .dashboard {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 18px;
+            }
+
+            header h1 {
+                font-size: 18px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome h2 {
+                font-size: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        College Event Registration System
+    </h1>
+
+    <span>
+        Spring Boot Application
+    </span>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="welcome">
+
+        <h2>
+            Welcome to the Event Management Portal
+        </h2>
+
+        <p>
+            Manage students, events, organizers and registrations
+            from one place.
+        </p>
+
+    </div>
+
+
+    <!-- MAIN DASHBOARD -->
+
+    <div class="dashboard">
+
+
+        <!-- STUDENTS -->
+
+        <div class="card">
+
+            <div class="icon">
+                🎓
+            </div>
+
+            <h3>
+                Students
+            </h3>
+
+            <p>
+                Manage student records
+                and registration details.
+            </p>
+
+            <a
+                    href="/students.html"
+                    class="btn">
+
+                Manage Students
+
+            </a>
+
+        </div>
+
+
+        <!-- EVENTS -->
+
+        <div class="card">
+
+            <div class="icon">
+                📅
+            </div>
+
+            <h3>
+                Events
+            </h3>
+
+            <p>
+                Create and manage
+                college events.
+            </p>
+
+            <a
+                    href="/events.html"
+                    class="btn">
+
+                Manage Events
+
+            </a>
+
+        </div>
+
+
+        <!-- ORGANIZERS -->
+
+        <div class="card">
+
+            <div class="icon">
+                👤
+            </div>
+
+            <h3>
+                Organizers
+            </h3>
+
+            <p>
+                Manage event organizers
+                and departments.
+            </p>
+
+            <a
+                    href="/organizers.html"
+                    class="btn">
+
+                Manage Organizers
+
+            </a>
+
+        </div>
+
+
+        <!-- REGISTRATIONS -->
+
+        <div class="card">
+
+            <div class="icon">
+                📝
+            </div>
+
+            <h3>
+                Registrations
+            </h3>
+
+            <p>
+                Register students for
+                available events.
+            </p>
+
+            <a
+                    href="/registrations.html"
+                    class="btn">
+
+                Manage Registrations
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- QUICK ACCESS -->
+
+    <div class="section">
+
+        <h2>
+            Quick Access
+        </h2>
+
+
+        <div class="quick-links">
+
+
+            <a
+                    href="/students.html"
+                    class="quick-link">
+
+                🎓
+                <strong>
+                    Student Management
+                </strong>
+
+                <br>
+
+                Add, update, view and delete
+                student records.
+
+            </a>
+
+
+            <a
+                    href="/events.html"
+                    class="quick-link">
+
+                📅
+                <strong>
+                    Event Management
+                </strong>
+
+                <br>
+
+                Create and manage college events.
+
+            </a>
+
+
+            <a
+                    href="/organizers.html"
+                    class="quick-link">
+
+                👤
+                <strong>
+                    Organizer Management
+                </strong>
+
+                <br>
+
+                Manage event organizers.
+
+            </a>
+
+
+            <a
+                    href="/registrations.html"
+                    class="quick-link">
+
+                📝
+                <strong>
+                    Event Registration
+                </strong>
+
+                <br>
+
+                Register students for events.
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    College Event Registration System
+    <br>
+
+    <small>
+        Developed using Spring Boot, Java, MySQL and HTML/CSS
+    </small>
+
+</footer>
+
+
+</body>
+
+</html>
